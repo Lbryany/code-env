@@ -1,0 +1,7 @@
+2019/10/03 10:44:22 [emerg] 1#1: unknown directive "upsteam" in /etc/nginx/vhost/demo.conf:1
+2019/10/03 10:49:30 [emerg] 1#1: unknown directive "upsteam" in /etc/nginx/vhost/demo.conf:1
+2019/10/03 10:49:32 [emerg] 1#1: unknown directive "upsteam" in /etc/nginx/vhost/demo.conf:1
+2019/10/03 10:50:22 [emerg] 1#1: unknown directive "upsteam" in /etc/nginx/vhost/demo.conf:1
+2019/10/03 10:50:38 [warn] 1#1: conflicting server name "localhost" on 0.0.0.0:80, ignored
+2019/10/03 10:51:26 [warn] 1#1: conflicting server name "localhost" on 0.0.0.0:80, ignored
+2019/10/03 10:53:39 [warn] 1#1: conflicting server name "localhost" on 0.0.0.0:80, ignored

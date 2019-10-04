@@ -1,0 +1,59 @@
+version: '3.3'
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+
+volumes:
+  nginx:
+    driver: local
+
+services:
+
+    nginx:
+      build:
+        context: ./nginx
+        args:
+          - http_proxy
+          - https_proxy
+          - no_proxy
+      volumes:
+        - ${NGINX_HOST_LOG_PATH}:/var/log/nginx
+        - ${DEMO_CODE_PATH_HOST}:${PHP_WORKDIR}/demo
+        - ${NGINX_SITES_PATH}:/etc/nginx/vhost
+        - ${NGINX_SSL_PATH}:/etc/nginx/ssl
+      ports:
+        - "80:80"
+        - "443:443"
+      networks:
+        - frontend
+        - backend
+
+    ### demo项目配置
+    demo:
+      build:
+        context: ./demo
+        args:
+          - INSTALL_PHP_VERSION=${DEMO_PHP_VERSION}
+          - PHP_WORKDIR=${PHP_WORKDIR}
+          - PHP_RUNENV=${DEMO_RUNENV}
+          - INSTALL_IMAP=${PHP_INSTALL_IMAP}
+          - INSTALL_AMQP=${PHP_INSTALL_AMQP}
+          - INSTALL_PHPREDIS=${PHP_INSTALL_PHPREDIS}
+          - INSTALL_OPCACHE=${PHP_INSTALL_OPCACHE}
+          - INSTALL_MYSQLI=${PHP_INSTALL_MYSQLI}
+          - INSTALL_SWOOLE=${PHP_INSTALL_SWOOLE}
+          - INSTALL_IMAGEMAGICK=${PHP_INSTALL_IMAGEMAGICK}
+          - INSTALL_YAML=${PHP_INSTALL_YAML}
+          - http_proxy
+          - https_proxy
+          - no_proxy
+      volumes:
+        - ${DEMO_CODE_PATH_HOST}:${PHP_WORKDIR}/demo
+      expose:
+        - "9000"
+      networks:
+        - backend
+      
